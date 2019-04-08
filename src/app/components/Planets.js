@@ -1,7 +1,7 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 import { get } from 'http';
 
-class List extends React.Component {
+class Planets extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -12,7 +12,8 @@ class List extends React.Component {
   }
 
 	componentDidMount() {
-    fetch("https://swapi.co/api/people/")
+    const request = this.props.location.pathname.replace("/", "");
+    fetch("https://swapi.co/api/"+ request)
       .then(res => res.json())
       .then(
         (result) => {
@@ -40,7 +41,7 @@ class List extends React.Component {
     } else {
       return (
         <ul>
-          {
+          { console.log(this.props.location.pathname),
             items.map(item => (
             <li key={item.name}>
               {item.name}
@@ -51,4 +52,4 @@ class List extends React.Component {
     }
   }
 }
-export default List
+export default Planets
