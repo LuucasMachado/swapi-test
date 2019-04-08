@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { get } from 'http';
 
-class MyComponent extends React.Component {
+class List extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -12,7 +12,7 @@ class MyComponent extends React.Component {
   }
 
 	componentDidMount() {
-    fetch("https://swapi.co/api/people/?search=a")
+    fetch("https://swapi.co/api/people/")
       .then(res => res.json())
       .then(
         (result) => {
@@ -20,10 +20,7 @@ class MyComponent extends React.Component {
             isLoaded: true,
             items: result.results
           });
-        },
-        // Note: it's important to handle errors here
-        // instead of a catch() block so that we don't swallow
-        // exceptions from actual bugs in components.
+        },  
         (error) => {
           this.setState({
             isLoaded: true,
@@ -54,4 +51,4 @@ class MyComponent extends React.Component {
     }
   }
 }
-export default MyComponent
+export default List
