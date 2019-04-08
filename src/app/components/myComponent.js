@@ -12,23 +12,19 @@ class MyComponent extends React.Component {
   }
 
 	componentDidMount() {
-		const apiURL = "https://swapi.co/api/people/1";
-    fetch(apiURL,{
-			method: "GET",})
+    fetch("https://swapi.co/api/people/?search=a")
       .then(res => res.json())
       .then(
         (result) => {
-					console.log(result),
           this.setState({
             isLoaded: true,
-            items: result
+            items: result.results
           });
         },
         // Note: it's important to handle errors here
         // instead of a catch() block so that we don't swallow
         // exceptions from actual bugs in components.
         (error) => {
-					console.log(error),
           this.setState({
             isLoaded: true,
             error
@@ -36,6 +32,7 @@ class MyComponent extends React.Component {
         }
       )
   }
+
   
   render() {
     const { error, isLoaded, items } = this.state;
@@ -46,7 +43,12 @@ class MyComponent extends React.Component {
     } else {
       return (
         <ul>
-          <p>{items.name}</p>
+          {
+            items.map(item => (
+            <li key={item.name}>
+              {item.name}
+            </li>
+          ))}
         </ul>
       );
     }
